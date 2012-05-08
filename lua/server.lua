@@ -133,8 +133,6 @@ function Tick(Time, ServerTick)
 
     if (iTick % 50 == 0) then
         CheckPlayersLife()
-        local mem = gcinfo()
-        Print("laMemoryInfo", "Memory: "..mem.."KB")
     end
     for i = 0, PlayerCount - 1 do
         if (CharacterIsAlive(i) == false and (Players[i]["lifes"] > 0 or RoundStarted == false) and Players[i]["dietick"] < iTick - 5) then
