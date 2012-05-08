@@ -143,6 +143,7 @@ function Tick(Time, ServerTick)
     GTime = Time
 
     if (iTick % 50 == 0) then
+        CheckPlayersLife()
         local mem = gcinfo()
         Print("laMemoryInfo", "Memory: "..mem.."KB")
     end
