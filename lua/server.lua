@@ -26,12 +26,11 @@ function OnCanSpawn()
 end
 
 function OnDie()
-    Id = DieGetVictimID()
+    local Id = DieGetVictimID()
     if (IsDummy(Id) == true) then
         Kills = Kills + 1
         Id = 128 - Id
         Killed[Zombies[Id]["type"]] = Killed[Zombies[Id]["type"]] + 1
-        --
         Zombies[Id]["dietick"] = iTick
         Num = GetLeftZombies()
         if (Num == 0) then
@@ -52,7 +51,7 @@ function OnDie()
 end
 
 function CheckPlayersLife()
-    NumLifes = 0
+    local NumLifes = 0
     for i = 0, PlayerCount - 1 do
         if (GetPlayerName(i) ~= nil) then
             NumLifes = NumLifes + Players[i]["lifes"]
@@ -68,21 +67,11 @@ function CheckPlayersLife()
 end
 
 function GetLeftZombies()
-    Num = 0
-    Num = Num + (Waves[WaveNum][1] - Killed[1])
-    Num = Num + (Waves[WaveNum][2] - Killed[2])
-    Num = Num + (Waves[WaveNum][3] - Killed[3])
-    Num = Num + (Waves[WaveNum][4] - Killed[4])
-    return Num
+    return (Waves[WaveNum][1] - Killed[1]) + (Waves[WaveNum][2] - Killed[2]) + (Waves[WaveNum][3] - Killed[3]) + (Waves[WaveNum][4] - Killed[4])
 end
 
 function GetLeftZombiesToSpawn()
-    Num = 0
-    Num = Num + (Waves[WaveNum][1] - Spawned[1])
-    Num = Num + (Waves[WaveNum][2] - Spawned[2])
-    Num = Num + (Waves[WaveNum][3] - Spawned[3])
-    Num = Num + (Waves[WaveNum][4] - Spawned[4])
-    return Num
+    return (Waves[WaveNum][1] - Spawned[1]) + (Waves[WaveNum][2] - Spawned[2]) + (Waves[WaveNum][3] - Spawned[3]) + (Waves[WaveNum][4] - Spawned[4])
 end
 
 function OnPlayerJoinTeam()
@@ -176,7 +165,7 @@ function Tick(Time, ServerTick)
         Spawned[3] = 0
         Spawned[4] = 0
         WaveNum = WaveNum + 1
-        Msg = ""
+        local Msg = ""
         if (Waves[WaveNum][1] ~= 0) then
             Msg = Msg .. " | " .. Waves[WaveNum][1] .. " YoungZombies"
         end
@@ -277,9 +266,9 @@ function Seek(i)
 	local mindist = nil
 	for z = 1, #Chars do
 		if(EntityGetCharacterId(Chars[z]) ~= 128 - i and GetPlayerTeam(EntityGetCharacterId(Chars[z])) ~= GetPlayerTeam(128 - i)) then
-            xhuman, yhuman = GetCharacterPos(EntityGetCharacterId(Chars[z]))
-            dist = Distance(xhuman, yhuman, x, y);
-            b = IntersectLine(x, y, xhuman, yhuman)
+            local xhuman, yhuman = GetCharacterPos(EntityGetCharacterId(Chars[z]))
+            local dist = Distance(xhuman, yhuman, x, y);
+            local b = IntersectLine(x, y, xhuman, yhuman)
             if((mindist == nil or dist < mindist) and b == 0) then
                 Zombies[i]["target"] = EntityGetCharacterId(Chars[z]);
                 Zombies[i]["state"] = ZOMBIE_STATE_CHASING;
@@ -365,7 +354,7 @@ function WeaponCheck(i)
     local x, y = GetCharacterPos(128 - i)
     local xhuman, yhuman = GetCharacterPos(Zombies[i]["target"])
 	local dist = Distance(x, y, xhuman, yhuman)
-	WantedWeapon = {}
+	local WantedWeapon = {}
 	WantedWeapon[0] = 1
 	WantedWeapon[1] = 1
 	WantedWeapon[2] = 1
@@ -484,8 +473,8 @@ function CheckClostestHuman(i)
 	local mindist = nil
 	for z = 1, #Chars do
 		if(EntityGetCharacterId(Chars[z]) ~= 128 - i and GetPlayerTeam(EntityGetCharacterId(Chars[z])) ~= GetPlayerTeam(128 - i)) then
-            xhuman, yhuman = GetCharacterPos(EntityGetCharacterId(Chars[z]))
-            dist = Distance(xhuman, yhuman, x, y);
+            local xhuman, yhuman = GetCharacterPos(EntityGetCharacterId(Chars[z]))
+            local dist = Distance(xhuman, yhuman, x, y);
             if(mindist == nil or dist < mindist) then
                 if(xhuman > x) then
                     Zombies[i]["direction"] = 1;
