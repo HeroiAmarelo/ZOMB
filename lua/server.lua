@@ -53,11 +53,11 @@ end
 function CheckPlayersLife()
     local NumLifes = 0
     for i = 0, PlayerCount - 1 do
-        if (GetPlayerName(i) ~= nil) then
+        if (GetPlayerName(i) ~= nil and GetPlayerTeam(i) == 0) then
             NumLifes = NumLifes + Players[i]["lifes"]
         end
     end
-    if (NumLifes == 0) then
+    if (NumLifes == 0 and RoundStarted == true) then
         for i = 0, MaxClients do
             CharacterKill(i)
         end
