@@ -140,7 +140,7 @@ function Tick(Time, ServerTick)
             CharacterSpawn(i)
             CanSpawn = false --workaround
         end
-        if (Players[i]["lifes"] == 0 and GetPlayerTeam(i) and RoundStart == true) then
+        if (Players[i]["lifes"] == 0 and GetPlayerTeam(i) == 0 and RoundStart == true) then
             SetPlayerTeam(i, -1)
         end
     end
